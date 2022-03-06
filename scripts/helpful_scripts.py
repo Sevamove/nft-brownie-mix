@@ -15,8 +15,6 @@ COLLECTION_SYMBOL = "ABC" # Change the value for each new collection.
 COLLECTION_DESCRIPTION = "Your Collection's Description" # What your collection is about.
 AMOUNT_TO_MINT = 3 # Make sure you have enough images.
 
-#CONTRACT_OWNER = "" # IMPORTANT: Address of who is gonna to deploy the contract. The address is also gonna be used in CONTRACT_URI.
-
 """
 Implemented if SPREADSHEET is disabled.
 Convinient if a collection that consistis of rational many images by which means
