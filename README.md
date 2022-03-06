@@ -1,5 +1,13 @@
 # NFT template
 
+<br/>
+<p align="center">
+<a href="https://webdriedesign.nl" target="_blank">
+<img src="./wdd.png" width="225" alt="WebDrieDesign white logo">
+</a>
+</p>
+<br/>
+
 ## Technology Stack & Tools
 
 - [Solidity](https://docs.soliditylang.org/en/latest/index.html) (High-level language for implementing smart contracts)
