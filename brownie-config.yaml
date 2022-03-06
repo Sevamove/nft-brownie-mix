@@ -1,0 +1,19 @@
+dependencies:
+  # - <organization(github account)/repo>@<version>
+  - OpenZeppelin/openzeppelin-contracts@4.5.0
+compiler:
+  solc:
+    remappings:
+      - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.5.0"
+dotenv: .env
+networks:
+  default: development
+  rinkeby:
+    verify: True
+  polygon:
+    verify: True
+wallets:
+  rinkeby:
+    from_key: ${PRIVATE_KEY_TEST}
+  polygon:
+    from_key: ${PRIVATE_KEY_MAIN}
