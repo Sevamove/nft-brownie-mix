@@ -1,11 +1,11 @@
 from scripts.helpful_scripts import (
-    TESTNETS_OPENSEA_URL,
-    load_from_json,
     OPENSEA_URL,
     get_account,
-    PATH,
+    load_from_json,
+    TESTNETS_OPENSEA_URL,
 )
 from brownie import NFT, network
+from nft_config import PATH
 
 def main():
     set_token_uri()

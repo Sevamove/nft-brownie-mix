@@ -1,13 +1,13 @@
 from scripts.ipfs_pinata.upload_to_pinata import upload_to_pinata
+from scripts.helpful_scripts import dump_to_json, load_from_json
 from scripts.ipfs_pinata.upload_to_ipfs import upload_to_ipfs
-from scripts.helpful_scripts import (
-    dump_to_json, load_from_json,
+from nft_config import (
     PATH,
     UPLOAD_IPFS,
-    ADDITIONAL_METADATA,
-    NFT_EXTERNAL_LINK,
     SPREADSHEET,
     ALTERNATIVE_DATA,
+    NFT_EXTERNAL_LINK,
+    ADDITIONAL_METADATA,
 )
 import openpyxl
 

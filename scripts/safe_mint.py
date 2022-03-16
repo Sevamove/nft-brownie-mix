@@ -1,5 +1,5 @@
+from scripts.helpful_scripts import get_account
 from brownie import NFT
-from scripts.helpful_scripts import get_account, PATH, load_from_json
 import time
 import sys
 

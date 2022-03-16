@@ -1,10 +1,9 @@
 from scripts.ipfs_pinata.upload_to_pinata import upload_to_pinata
-from scripts.helpful_scripts import (
-    get_account,
+from scripts.helpful_scripts import get_account, dump_to_json
+from nft_config import (
     PATH,
-    dump_to_json,
-    CONTRACT_URI,
     UPLOAD_IPFS,
+    CONTRACT_URI,
 )
 from brownie import NFT, network
 

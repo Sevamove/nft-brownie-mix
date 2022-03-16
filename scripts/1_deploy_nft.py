@@ -1,8 +1,8 @@
 from scripts.copy_images_and_metadata import copy_images_and_metadata
 from scripts.set_contract_uri import set_contract_uri
+from scripts.helpful_scripts import get_account
 from brownie import NFT, network, config
-from scripts.helpful_scripts import (
-    get_account,
+from nft_config import (
     COLLECTION_NAME,
     COLLECTION_SYMBOL,
     ROYALTY_FEES_IN_BIPS,

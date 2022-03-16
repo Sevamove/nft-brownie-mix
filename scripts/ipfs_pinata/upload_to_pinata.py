@@ -1,4 +1,4 @@
-from scripts.helpful_scripts import PINATA_API_KEY, PINATA_API_SECRET
+from nft_config import PINATA_API_KEY, PINATA_API_SECRET
 from pathlib import Path
 import requests
 

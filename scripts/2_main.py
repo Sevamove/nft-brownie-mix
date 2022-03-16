@@ -1,10 +1,10 @@
 from scripts.modify_metadata import modify_metadata
+from scripts.helpful_scripts import get_account
 from scripts.set_token_uri import set_token_uri
 from scripts.safe_mint import safe_mint
-from scripts.helpful_scripts import (
-    COLLECTION_NAME,
+from nft_config import (
     AMOUNT_TO_MINT,
-    get_account,
+    COLLECTION_NAME,
 )
 from brownie import NFT
 

@@ -1,4 +1,4 @@
-from scripts.helpful_scripts import PATH
+from nft_config import PATH
 import shutil
 import os
 
