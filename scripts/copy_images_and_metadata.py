@@ -26,7 +26,9 @@ def copy_images_and_metadata():
     """
     copy_images(PATH["hashlips_images"], PATH["images"])
     copy_metadata(PATH["hashlips_metadata"], PATH["metadata"])
+
     remake_dir(PATH["contract_URI"])
+    remake_dir(PATH["token_URIs"])
 
 def main():
     copy_images_and_metadata()
