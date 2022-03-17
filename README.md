@@ -57,7 +57,7 @@ cd nft-brownie-ipfs-pinata-hashlips
 3. Install Hashlips Art Engine dependencies:
 
 
-Go to the `hashlips_art_engine` and run the following command if you have `yarn` installed.
+Go to the `./hashlips_art_engine` and run the following command if you have `yarn` installed.
 ```bash
 yarn install
 ```
@@ -65,20 +65,6 @@ Alternatively you can run this command if you have `node` installed.
 ```bash
 npm install
 ```
-
-
-4. Please read the `./hashlips_art_engine/README.md` (if you are not already familiar with that) about how to properly use the Hashlips Art Engine, how to upload the layers and how to give a __rarity weight__, how to set the edition size to the wishful amount of artworks in `./hashlips_art_engine/src/config.js` file.
-
-
-5. Generate artworks:
-
-
-For that, in `./hashlips_art_engine` directory, run:
-```bash
-npm run generate
-```
-
-Now you can view with specified amount your first generated artworks in `./hashlips_art_engine/build/images` and their metadata in `./hashlips_art_engine/build/json`. Later we will copy the content with the help of Python script in order to upload it to IPFS/Pinata.
 
 
 ## Testnet Development
@@ -138,19 +124,82 @@ And update the brownie config accordingly.
 
 ## Usage
 
-_(coming soon)_
 
-## Verify on Etherscan
+1. Add layer folders to `hashlips_art_engine/layers/`. Then make sure that you have set the wishful edition size in `hashlips_art_engine/src/config.js` and followed the instructions about the proper setup of the layers order.
 
-`...`
+> If you are not already familiar with Hashlips Art Engine, then first you want to read the `./hashlips_art_engine/README.md` about how to properly use this program, how to set the layer folders in the right way and how to give the __rarity weight__ to each layer, how to set the edition size to the wishful amount of artworks in `./hashlips_art_engine/src/config.js` file.
 
-## Viewing on OpenSea
 
-`...`
+2. Generate artworks:
+
+
+For that, in `./hashlips_art_engine` directory, execute:
+```bash
+npm run generate
+```
+
+Now you can view with specified amount your first generated artworks in `./hashlips_art_engine/build/images` and their original metadata in `./hashlips_art_engine/build/json`.
+
+
+3. Go to `nft_config.py` and provide some information about your collection by replacing the values in this variables:
+
+```python
+COLLECTION_NAME = "Your Collection's Name" # Change the name for each new collection.
+COLLECTION_SYMBOL = "ABC" # Change the value for each new collection.
+COLLECTION_DESCRIPTION = "Your Collection's Description" # What your collection is about.
+AMOUNT_TO_MINT = 3 # Make sure you have enough images.
+
+ALTERNATIVE_DATA = {
+    "name": "Creative Name", # Change the name.
+    "description": "The most affair description" # Change the description.
+}
+
+ADDITIONAL_METADATA = {} # {"creator": "John Doe", "artist": "John Doe"}
+
+SPREADSHEET = {
+    "enable": True,
+    "include_hashlips_generated_metadata_attributes": False, # Can ignore if didn't use hashlips_art_engine
+    "path": "./nft-spreadsheet-data.xlsx",
+    "trait_types": ["Sport", "Languages", "Zodiac sign", "Character", "Location"],
+}
+
+NFT_EXTERNAL_LINK = {
+    "enable": True,
+    "root": "https://yourwebsite.io/",
+    "url": "https://yourwebsite.io/your-collection/",
+    "token_id": False, # https://yourwebsite.io/assets/123
+}
+
+ROYALTY_FEES_IN_BIPS = 1000 # Indicates a 10% seller fee.
+```
+
+
+4. Deploy NFT.sol smart contract:
+
+```bash
+brownie run scripts/01_deploy_nft.py
+```
+
+
+5. Mint NFTs:
+
+```bash
+brownie run scripts/02_main.py
+```
+
+
+After that you'll be able to view your NFTs on major marketplaces like OpenSea 🥳
+
 
 ## Resources
 
-`...`
+To get started with Brownie:
+
+* Check out the [Brownie mixes](https://github.com/brownie-mix/) that can be used as a starting point for your own contracts. They also provide example code to help you get started.
+* Check out the [Chainlink documentation](https://docs.chain.link/docs) to get started from any level of smart contract engineering. 
+* ["Getting Started with Brownie"](https://medium.com/@iamdefinitelyahuman/getting-started-with-brownie-part-1-9b2181f4cb99) is a good tutorial to help you familiarize yourself with Brownie.
+* Cognitive [Brownie tutorial](https://github.com/curvefi/brownie-tutorial) by Curve Finance.
+* For more in-depth information, read the [Brownie documentation](https://eth-brownie.readthedocs.io/en/stable/).
 
 ## License
 
