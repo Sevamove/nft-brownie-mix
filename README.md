@@ -174,21 +174,39 @@ ROYALTY_FEES_IN_BIPS = 1000 # Indicates a 10% seller fee.
 ```
 
 
-4. Deploy NFT.sol smart contract:
+4. Deploy NFT.sol smart contract and mint NFTs:
+
+### Development network
+
+Start the brownie console:
 
 ```bash
-brownie run scripts/01_deploy_nft.py
+brownie console
+```
+
+In that console execute the functions:
+
+```bash
+run("scripts/01_deploy_nft.py")
+```
+```bash
+run("scripts/02_main.py")
 ```
 
 
-5. Mint NFTs:
+### Rinkeby testnet
+
+Simply run this commands in your terminal window:
 
 ```bash
-brownie run scripts/02_main.py
+brownie run scripts/01_deploy_nft.py --network rinkeby
+```
+```bash
+brownie run scripts/02_main.py --network rinkeby
 ```
 
 
-After that you'll be able to view your NFTs on major marketplaces like OpenSea 🥳
+If you deployed your NFTs to Rinkeby testnet, after that you'll be able to view your NFTs on major marketplaces like OpenSea 🥳
 
 
 ## Resources
@@ -200,6 +218,7 @@ To get started with Brownie:
 * ["Getting Started with Brownie"](https://medium.com/@iamdefinitelyahuman/getting-started-with-brownie-part-1-9b2181f4cb99) is a good tutorial to help you familiarize yourself with Brownie.
 * Cognitive [Brownie tutorial](https://github.com/curvefi/brownie-tutorial) by Curve Finance.
 * For more in-depth information, read the [Brownie documentation](https://eth-brownie.readthedocs.io/en/stable/).
+* Ultimate Solidity, Blockchain, and Smart Contract - Beginner to Expert [Full Course](https://github.com/smartcontractkit/full-blockchain-solidity-course-py) | Python Edition 
 
 ## License
 
