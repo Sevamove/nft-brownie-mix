@@ -1,6 +1,6 @@
 from scripts.helpful_scripts import (
     MAIN_BLOCKCHAIN_ENVIRONMENTS,
-    LOCAL_BLOCKCHAIN_ENVIRONMENTS
+    LOCAL_BLOCKCHAIN_ENVIRONMENTS,
 )
 from brownie import network
 import os
@@ -11,7 +11,7 @@ import os
 COLLECTION_NAME = "Your Collection's Name" # Change the name for each new collection.
 COLLECTION_SYMBOL = "ABC" # Change the value for each new collection.
 COLLECTION_DESCRIPTION = "Your Collection's Description" # What your collection is about.
-AMOUNT_TO_MINT = 3 # Make sure you have enough images.
+AMOUNT_TO_MINT = 3 # Make sure you have enough images in ./img
 
 """
 Implemented if SPREADSHEET is disabled.
@@ -80,7 +80,7 @@ The first 3 columns in the first row should be: ID, Name, Description
 trait_types key values are gonnna be added to the metadata (OpenSea properties).
 """
 SPREADSHEET = {
-    "enable": True,
+    "enable": False,
     "include_hashlips_generated_metadata_attributes": False, # Can ignore if didn't use hashlips_art_engine
     "path": "./nft-spreadsheet-data.xlsx",
     "trait_types": ["Sport", "Languages", "Zodiac sign", "Character", "Location"],
@@ -91,7 +91,7 @@ If enabled this url will be shown in each metadata, so it can provide the user
 with a link for more information about your collection or work of art.
 """
 NFT_EXTERNAL_LINK = {
-    "enable": True,
+    "enable": False,
     "root": "https://yourwebsite.io/",
     "url": "https://yourwebsite.io/your-collection/",
     "token_id": False, # https://yourwebsite.io/assets/123
@@ -99,7 +99,7 @@ NFT_EXTERNAL_LINK = {
 
 ROYALTY_FEES_IN_BIPS = 1000 # Indicates a 10% seller fee.
 
-# This contract level metadata will be used
+# This contract level metadata is used
 # to recieve royalty fees and is readed usually by OpenSea.
 
 CONTRACT_URI = {

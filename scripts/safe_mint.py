@@ -26,4 +26,4 @@ def safe_mint(_account=None, _token_uri=None):
             print("Exiting...")
             sys.exit(f"Error: tokenId {token_id} does not exist.")
 
-    return token_id
+    return token_id, tx_safe_mint

@@ -157,14 +157,14 @@ ALTERNATIVE_DATA = {
 ADDITIONAL_METADATA = {} # {"creator": "John Doe", "artist": "John Doe"}
 
 SPREADSHEET = {
-    "enable": True,
+    "enable": False,
     "include_hashlips_generated_metadata_attributes": False, # Can ignore if didn't use hashlips_art_engine
     "path": "./nft-spreadsheet-data.xlsx",
     "trait_types": ["Sport", "Languages", "Zodiac sign", "Character", "Location"],
 }
 
 NFT_EXTERNAL_LINK = {
-    "enable": True,
+    "enable": False,
     "root": "https://yourwebsite.io/",
     "url": "https://yourwebsite.io/your-collection/",
     "token_id": False, # https://yourwebsite.io/assets/123

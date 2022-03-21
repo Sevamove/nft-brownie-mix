@@ -25,6 +25,7 @@ def main():
     account = get_account()
     nft = NFT[-1]
     current_token_id = nft.getTokenIds()
+    tx = None
 
     bugs = []
 
@@ -40,7 +41,7 @@ def main():
 
         token_uri = modify_metadata(_token_id=upcoming_token_id)
 
-        current_token_id = safe_mint(_account=account, _token_uri=token_uri)
+        current_token_id, tx = safe_mint(_account=account, _token_uri=token_uri)
 
         previous_token_id = current_token_id - 1
 

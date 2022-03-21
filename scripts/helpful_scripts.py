@@ -1,4 +1,4 @@
-from brownie import accounts, config, network
+from brownie import accounts, config, network, web3
 import json
 import os
 
@@ -20,6 +20,9 @@ def get_account(index=None, id=None, wallet=None):
     elif wallet:
         return config["wallets"][wallet]
     return accounts.add(config["wallets"][network.show_active()]["from_key"])
+
+def get_event_value(_tx, _event_name: str, _key: str):
+    return _tx.events[_event_name][_key]
 
 def dump_to_json(_data:dict, _pathToFile:str, _indent:int=4):
     """Dump data to *.json file."""
