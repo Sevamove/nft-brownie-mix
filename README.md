@@ -187,10 +187,10 @@ brownie console
 In that console execute the functions:
 
 ```bash
-run("scripts/01_deploy_nft.py")
+run("scripts/deploy_nft.py")
 ```
 ```bash
-run("scripts/02_main.py")
+run("scripts/main.py")
 ```
 
 
@@ -199,10 +199,10 @@ run("scripts/02_main.py")
 Simply run this commands in your terminal window:
 
 ```bash
-brownie run scripts/01_deploy_nft.py --network rinkeby
+brownie run scripts/deploy_nft.py --network rinkeby
 ```
 ```bash
-brownie run scripts/02_main.py --network rinkeby
+brownie run scripts/main.py --network rinkeby
 ```
 
 
