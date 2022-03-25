@@ -29,7 +29,7 @@ def set_token_uri(_account=None, _token_id=None):
         )
         set_token_uri_tx.wait(1)
 
-        print(f"Setted tokenURI to tokenId {_token_id}")
+        print(f"Set tokenURI to tokenId {_token_id}")
         _show_msg(nft, _token_id)
 
         return True

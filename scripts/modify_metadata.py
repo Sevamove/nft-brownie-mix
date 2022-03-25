@@ -3,9 +3,11 @@ from scripts.helpful_scripts import dump_to_json, load_from_json
 from scripts.ipfs_pinata.upload_to_ipfs import upload_to_ipfs
 from nft_config import (
     PATH,
+    HASHLIPS,
     UPLOAD_IPFS,
     SPREADSHEET,
     ALTERNATIVE_DATA,
+    ALTERNATIVE_IMAGE,
     NFT_EXTERNAL_LINK,
     ADDITIONAL_METADATA,
 )
@@ -25,7 +27,7 @@ def modify_metadata(_token_id: int=None):
 
     token_id = _token_id
 
-    image_path = PATH["images"] + f"/{token_id}.png"
+    image_path = PATH["images"] + f"/{token_id}.png" if HASHLIPS["enable"] else PATH["images"] + f"/{ALTERNATIVE_IMAGE['file_name']}"
     metadata_path = PATH["metadata"] + f"/{token_id}.json"
     token_uri_path = PATH["token_URIs"] + f"/{token_id}.json"
 

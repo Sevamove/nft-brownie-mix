@@ -25,6 +25,14 @@ ALTERNATIVE_DATA = {
 }
 
 """
+Implemented if hashlips is disabled.
+Single edition art.
+"""
+ALTERNATIVE_IMAGE = {
+    "file_name": "image_name.png" # Provide the literal name of the image in ./img
+}
+
+"""
 Downloads images to IPFS by using Pinata services.
 If you don't want use Pinata, you can simply uncomment the function 'upload_to_ipfs'
 in modify_metadata.py and comment 'upload_to_pinata'. Don't forget to activate
@@ -51,8 +59,8 @@ You may stick with just 1 Pinata as the 1st option describes.
 For that uncomment another 2 variabls and comment this 2.
 """
 UPLOAD_IPFS = True if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS else False
-PINATA_API_KEY = os.getenv(f"PINATA_API_KEY_MAIN_{COLLECTION_SYMBOL}") if network.show_active() in MAIN_BLOCKCHAIN_ENVIRONMENTS else os.getenv("PINATA_API_KEY_TEST")
-PINATA_API_SECRET = os.getenv(f"PINATA_API_SECRET_{COLLECTION_SYMBOL}") if network.show_active() in MAIN_BLOCKCHAIN_ENVIRONMENTS else os.getenv("PINATA_API_SECRET_TEST")
+PINATA_API_KEY = os.getenv(f"PINATA_API_KEY_MAIN") if network.show_active() in MAIN_BLOCKCHAIN_ENVIRONMENTS else os.getenv("PINATA_API_KEY_TEST")
+PINATA_API_SECRET = os.getenv(f"PINATA_API_SECRET_MAIN") if network.show_active() in MAIN_BLOCKCHAIN_ENVIRONMENTS else os.getenv("PINATA_API_SECRET_TEST")
 #PINATA_API_KEY = os.getenv(f"PINATA_API_KEY")
 #PINATA_API_SECRET = os.getenv(f"PINATA_API_SECRET")
 
@@ -76,13 +84,19 @@ PATH = {
 }
 
 """
+If it is disabled the ALTERNATIVE_IMAGE takes it over.
+"""
+HASHLIPS = {
+    "enable": True,
+}
+
+"""
 The first 3 columns in the first row should be: ID, Name, Description
 trait_types key values are gonnna be added to the metadata (OpenSea properties).
 """
 SPREADSHEET = {
     "enable": False,
     "include_hashlips_generated_metadata_attributes": False, # Can ignore if didn't use hashlips_art_engine
-    "path": "./nft-spreadsheet-data.xlsx",
     "trait_types": ["Sport", "Languages", "Zodiac sign", "Character", "Location"],
 }
 

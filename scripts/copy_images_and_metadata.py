@@ -1,18 +1,23 @@
-from nft_config import PATH
+from nft_config import PATH, HASHLIPS
 import shutil
 import os
 
 def copy_images(src, dest):
-    if os.path.exists(dest):
-        shutil.rmtree(dest)
-    shutil.copytree(src, dest)
+    if HASHLIPS["enable"]:
+        if os.path.exists(dest):
+            shutil.rmtree(dest)
+
+            shutil.copytree(src, dest)
 
 def copy_metadata(src, dest):
     if os.path.exists(dest):
         shutil.rmtree(dest)
-    shutil.copytree(src, dest)
 
-    os.remove(dest + "/_metadata.json") # this file comes from hashlips engine.
+    if HASHLIPS["enable"]:
+        shutil.copytree(src, dest)
+        os.remove(dest + "/_metadata.json") # this file comes from hashlips engine.
+    else:
+        remake_dir(dest)
 
 def remake_dir(dest):
     if os.path.exists(dest):
