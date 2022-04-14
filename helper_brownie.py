@@ -6,11 +6,11 @@ CHAINS = {
     "main": ["mainnet", "polygon"],
 }
 
-CONTRACT_VERIFICATION = {
-    "enabled": config["networks"][network.show_active()].get("verify", False)
-}
-
 BLOCK_CONFIRMATIONS: int = 1 if network.show_active() in CHAINS["local"] else 6
+
+
+def is_verifiable_contract() -> bool:
+    return config["networks"][network.show_active()].get("verify", False)
 
 
 def get_account(index=None, id=None, wallet=None):
