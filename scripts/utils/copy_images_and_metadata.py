@@ -1,28 +1,32 @@
-from nft_config import PATH, HASHLIPS
+from scripts.utils.config import PATH, HASHLIPS
 import shutil
 import os
 
+
 def copy_images(src, dest):
-    if HASHLIPS["enable"]:
+    if HASHLIPS["enabled"] and HASHLIPS["overwrite_img"]:
         if os.path.exists(dest):
             shutil.rmtree(dest)
 
             shutil.copytree(src, dest)
 
+
 def copy_metadata(src, dest):
     if os.path.exists(dest):
         shutil.rmtree(dest)
 
-    if HASHLIPS["enable"]:
+    if HASHLIPS["enabled"] and HASHLIPS["overwrite_img"]:
         shutil.copytree(src, dest)
-        os.remove(dest + "/_metadata.json") # this file comes from hashlips engine.
+        os.remove(dest + "/_metadata.json")  # this file comes from hashlips.
     else:
         remake_dir(dest)
+
 
 def remake_dir(dest):
     if os.path.exists(dest):
         shutil.rmtree(dest)
     os.mkdir(dest)
+
 
 def copy_images_and_metadata():
     """
@@ -30,10 +34,11 @@ def copy_images_and_metadata():
     Run this function in order to overwrite the allocated directories.
     """
     copy_images(PATH["hashlips_images"], PATH["images"])
-    copy_metadata(PATH["hashlips_metadata"], PATH["metadata"])
+    copy_metadata(PATH["hashlips_metadata"], PATH["token_metadata"])
 
-    remake_dir(PATH["contract_URI"])
+    remake_dir(PATH["contract_metadata"])
     remake_dir(PATH["token_URIs"])
+
 
 def main():
     copy_images_and_metadata()

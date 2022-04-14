@@ -1,8 +1,9 @@
-from nft_config import PINATA_API_KEY, PINATA_API_SECRET
+from scripts.utils.config import PINATA
 from pathlib import Path
 import requests
 
-def upload_to_pinata(filepath=None):
+
+def upload_file(filepath: str = ""):
 
     """
     Use pinata if your IPFS server will not be running all the time.
@@ -12,10 +13,10 @@ def upload_to_pinata(filepath=None):
 
     PINATA_BASE_URL = "https://api.pinata.cloud/"
     endpoint = "pinning/pinFileToIPFS"
-    filename = filepath.split("/")[-1:][0] # slicing path to name of file.
+    filename = filepath.split("/")[-1:][0]  # slicing path to name of file.
     headers = {
-        "pinata_api_key": PINATA_API_KEY,
-        "pinata_secret_api_key": PINATA_API_SECRET
+        "pinata_api_key": PINATA["api_key"],
+        "pinata_secret_api_key": PINATA["api_secret"],
     }
 
     with Path(filepath).open("rb") as fp:
@@ -35,5 +36,6 @@ def upload_to_pinata(filepath=None):
 
         return file_uri
 
-def main():
-    upload_to_pinata()
+
+def upload_json(filepath: str = ""):
+    pass
