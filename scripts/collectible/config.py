@@ -1,3 +1,6 @@
+"""
+Collectible.sol constructor arguments.
+"""
 COLLECTIBLE = {
     "name": "Super Art Collection",
     "symbol": "SAC",
@@ -16,11 +19,22 @@ SINGLE_EDITION_COLLECTION = {
     "file_name": "image_name.png",  # Provide the literal name of the image in ./img
 }
 
+"""
+If SINGLE_EDITION_COLLECTION is enabled:
+    AMOUNT_TO_MINT = 1
+
+If SINGLE_EDITION_COLLECTION is disabled:
+    AMOUNT_TO_MINT = 10
+"""
 AMOUNT_TO_MINT = 1 if SINGLE_EDITION_COLLECTION["enabled"] else 10  # <-
 
 SPREADSHEET = {
     "enabled": False,  # <-
-    "trait_types": [],  # <- # first row columns after | ID | NAME | DESCRIPTION | CREATOR | ARTIST | 1st trait type | 2nd ...
+    "trait_types": [
+        "1st trait type (eg. Sport)",
+        "2nd trait type (eg. Languages)",
+        "3rd trait type (eg. Zodiac sign)",
+    ],  # <- # first row columns after | ID | NAME | DESCRIPTION | CREATOR | ARTIST | 1st trait type | 2nd ...
 }
 
 """

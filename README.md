@@ -136,7 +136,7 @@ git clone https://github.com/HashLips/hashlips_art_engine.git
 
 * With the help of the haslips documentation generate your first images. You know you fulfilled it right if the directory `./nft-brownie-mix/hashlips_art_engine/build/images` contains of satisfied images.
 
-2. Add `HASHLIPS = {"enabled": True}` in `./scripts/utils/config.py`.
+2. Make sure that hashlips is enabled `HASHLIPS = {"enabled": True}` in `./scripts/utils/config.py`.
 
 ### Without hashlips
 
