@@ -2,11 +2,11 @@
 Collectible.sol constructor arguments.
 """
 COLLECTIBLE = {
-    "name": "Super Art Collection",
-    "symbol": "SAC",
-    "contract_URI": "https://",
-    "royalty_receiver": "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",
-    "royalty_fraction": 250,  # e.g. 100 (1%); 1000 (10%)
+    "name": "Super Art Collection",  # <-
+    "symbol": "SAC",  # <-
+    "contract_URI": "",  # <-
+    "royalty_receiver": "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",  # <-
+    "royalty_fraction": 250,  # e.g. 100 (1%); 1000 (10%) # <-
 }
 
 """
@@ -15,8 +15,8 @@ Is collection considered as a single edition collection?
     - NO: SINGLE_EDITION_COLLECTION["enabled"] = False
 """
 SINGLE_EDITION_COLLECTION = {
-    "enabled": True,
-    "file_name": "image_name.png",  # Provide the literal name of the image in ./img
+    "enabled": True,  # <-
+    "file_name": "image_name.png",  # Provide the literal name of the image in ./img # <-
 }
 
 """
@@ -31,9 +31,9 @@ AMOUNT_TO_MINT = 1 if SINGLE_EDITION_COLLECTION["enabled"] else 10  # <-
 SPREADSHEET = {
     "enabled": False,  # <-
     "trait_types": [
-        "1st trait type (eg. Sport)",
-        "2nd trait type (eg. Languages)",
-        "3rd trait type (eg. Zodiac sign)",
+        "1st trait type (eg. Sport)",  # <-
+        "2nd trait type (eg. Languages)",  # <-
+        "3rd trait type (eg. Zodiac sign)",  # <-
     ],  # <- # first row columns after | ID | NAME | DESCRIPTION | CREATOR | ARTIST | 1st trait type | 2nd ...
 }
 
@@ -72,8 +72,8 @@ COLLECTION = {
         "additional_metadata": {
             "enabled": False,  # <-
             "data": {
-                "extra key 1": "value",
-                "extra key 2": "value",
+                "extra key 1": "value",  # any key | value
+                "extra key 2": "value",  # any key | value
                 # ...
             },
         },
