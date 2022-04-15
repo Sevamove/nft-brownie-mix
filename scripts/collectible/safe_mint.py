@@ -21,12 +21,4 @@ def safe_mint(_account=None, _token_URI=None):
     token_id = collectible.totalSupply()
     print(f"Minted NFT with the tokenId of {token_id} and tokenURI of {_token_URI}")
 
-    # if collectible._exists(token_id) == False:
-    #    print("------------------------NOT EXISTS------------------------")
-    #    time.sleep(10)
-
-    #    if collectible._exists(token_id) == False:
-    #        print("Exiting...")
-    #        sys.exit(f"Error: tokenId {token_id} does not exist.")
-
     return token_id, tx_safe_mint

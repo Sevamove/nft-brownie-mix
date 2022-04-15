@@ -1,5 +1,9 @@
 from brownie import Collectible
-from helper_brownie import BLOCK_CONFIRMATIONS, is_verifiable_contract, get_account
+from helper_brownie import (
+    BLOCK_CONFIRMATIONS_FOR_VERIFICATION,
+    get_account,
+    is_verifiable_contract,
+)
 from scripts.collectible.config import COLLECTIBLE
 from scripts.collectible.set_contract_uri import set_contract_uri
 from scripts.utils.copy_images_and_metadata import copy_images_and_metadata
@@ -29,7 +33,7 @@ def deploy_nft(
     )
 
     if is_verifiable_contract():
-        collectible.tx.wait(BLOCK_CONFIRMATIONS)
+        collectible.tx.wait(BLOCK_CONFIRMATIONS_FOR_VERIFICATION)
         Collectible.publish_source(collectible)
 
     copy_images_and_metadata()

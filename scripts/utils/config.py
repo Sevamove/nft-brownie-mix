@@ -1,5 +1,9 @@
 from brownie import network
 from helper_brownie import CHAINS
+from scripts.collectible.config import (
+    COLLECTIBLE,
+    COLLECTION,
+)
 import os
 
 IPFS: dict[str, bool] = {"enabled": False}
@@ -15,23 +19,39 @@ PATH: dict[str, str] = {
     "collectible_logo": "./metadata/logo.png",
 }
 
-PINATA = {
+PINATA: dict[str, bool] = {
     "enabled": False,
-    "api_key": os.getenv(f"PINATA_API_KEY_MAIN")
+    "api_key": bool(os.getenv(f"PINATA_API_KEY_MAIN"))
     if network.show_active() in CHAINS["main"]
-    else os.getenv("PINATA_API_KEY_TEST"),
-    "api_secret": os.getenv(f"PINATA_API_SECRET_MAIN")
+    else bool(os.getenv("PINATA_API_KEY_TEST")),
+    "api_secret": bool(os.getenv(f"PINATA_API_SECRET_MAIN"))
     if network.show_active() in CHAINS["main"]
-    else os.getenv("PINATA_API_SECRET_TEST"),
+    else bool(os.getenv("PINATA_API_SECRET_TEST")),
 }
 
-OPENSEA = {
-    "enabled": True,
-    "main_url": "https://opensea.io/assets/{}/{}",
-    "test_url": "https://testnets.opensea.io/assets/{}/{}",
+MARKETPLACE = {
+    "opensea": {
+        "enabled": True,
+        "main_url": "https://opensea.io/assets/{}/{}",
+        "test_url": "https://testnets.opensea.io/assets/{}/{}",
+        "contract_metadata": {
+            "name": COLLECTIBLE["name"],
+            "description": COLLECTION["description"],
+            "image": PATH["collectible_logo"],
+            "external_link": COLLECTION["external_link"]["base_url"],
+            "seller_fee_basis_points": COLLECTIBLE["royalty_fraction"],
+            "fee_recipient": COLLECTIBLE["royalty_receiver"],
+        },
+    }
 }
 
-HASHLIPS = {
-    "enabled": True,
-    "overwrite_img": True,
+""" HASHLIPS
+Before enabling it make sure that you have:
+1. Installed the hashlips_art_engine and located in the brownie project root directory.
+2. Generated images in ./nft-brownie-mix/hashlips_art_engine/build/images
+For more information provide to the hashlips_art_engine docs.
+"""
+HASHLIPS: dict[str, bool] = {
+    "enabled": False,
+    "include_generated_metadata_attributes": False,
 }

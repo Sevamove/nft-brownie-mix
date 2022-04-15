@@ -1,8 +1,8 @@
 from helper_brownie import get_account
-from scripts.utils.config import PATH, PINATA
+from scripts.utils.config import PATH, PINATA, MARKETPLACE
 from scripts.utils.helper import dump_to_json
 from scripts.utils.pinata import upload_file
-from scripts.collectible.config import COLLECTIBLE, CONTRACT_METADATA
+from scripts.collectible.config import COLLECTIBLE, COLLECTION
 from brownie import Collectible, network
 
 
@@ -33,17 +33,19 @@ def set_contract_uri(_account=None):
         set_contract_uri_tx.wait(1)
     else:
         contract_metadata_path = PATH["contract_metadata"] + "/collectible.json"
-        contract_metadata = CONTRACT_METADATA
-        # contract_metadata["fee_recipient"] = account.address
 
-        if PINATA["enabled"]:
-            contract_metadata["image"] = upload_file(PATH["collectible_logo"])
-            dump_to_json(contract_metadata, contract_metadata_path)
-            contract_URI = upload_file(contract_metadata_path)
-        else:
-            contract_metadata["image"] = "ipfs://HASH/logo.png"
-            dump_to_json(contract_metadata, contract_metadata_path)
-            contract_URI = "ipfs://Q1234ABC"
+        if MARKETPLACE["opensea"]["enabled"]:
+            contract_metadata = MARKETPLACE["opensea"]["contract_metadata"]
+            # contract_metadata["fee_recipient"] = account.address
+
+            if PINATA["enabled"]:
+                contract_metadata["image"] = upload_file(PATH["collectible_logo"])
+                dump_to_json(contract_metadata, contract_metadata_path)
+                contract_URI = upload_file(contract_metadata_path)
+            else:
+                contract_metadata["image"] = "ipfs://HASH/logo.png"
+                dump_to_json(contract_metadata, contract_metadata_path)
+                contract_URI = "ipfs://Q1234ABC"
 
         set_contract_uri_tx = collectible.setContractURI(
             contract_URI, {"from": account}

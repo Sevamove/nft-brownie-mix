@@ -6,7 +6,9 @@ CHAINS = {
     "main": ["mainnet", "polygon"],
 }
 
-BLOCK_CONFIRMATIONS: int = 1 if network.show_active() in CHAINS["local"] else 6
+BLOCK_CONFIRMATIONS_FOR_VERIFICATION: int = (
+    1 if network.show_active() in CHAINS["local"] else 6
+)
 
 
 def is_verifiable_contract() -> bool:

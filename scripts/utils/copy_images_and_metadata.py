@@ -4,22 +4,18 @@ import os
 
 
 def copy_images(src, dest):
-    if HASHLIPS["enabled"] and HASHLIPS["overwrite_img"]:
-        if os.path.exists(dest):
-            shutil.rmtree(dest)
+    remake_dir(dest)
 
-            shutil.copytree(src, dest)
+    if HASHLIPS["enabled"]:
+        shutil.copytree(src, dest)
 
 
 def copy_metadata(src, dest):
-    if os.path.exists(dest):
-        shutil.rmtree(dest)
+    remake_dir(dest)
 
-    if HASHLIPS["enabled"] and HASHLIPS["overwrite_img"]:
+    if HASHLIPS["enabled"]:
         shutil.copytree(src, dest)
         os.remove(dest + "/_metadata.json")  # this file comes from hashlips.
-    else:
-        remake_dir(dest)
 
 
 def remake_dir(dest):
