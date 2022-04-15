@@ -49,8 +49,8 @@ If you are cloning the project then run this first, otherwise you can download t
 
 
 ```bash
-git clone https://github.com/vsevdrob/nft-brownie-ipfs-pinata-hashlips
-cd nft-brownie-ipfs-pinata-hashlips
+git clone https://github.com/vsevdrob/nft-brownie-mix
+cd nft-brownie-mix
 ```
 
 
@@ -70,7 +70,7 @@ npm install
 ## Testnet Development
 If you want to be able to deploy to testnets, do the following.
 
-Set your `WEB3_INFURA_PROJECT_ID`, and `PRIVATE_KEY` [environment variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html).
+Set your `WEB3_INFURA_PROJECT_ID`, and `PRIVATE_KEY_TEST` [environment variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html).
 
 You can get a `WEB3_INFURA_PROJECT_ID` by getting a free trial of [Infura](https://infura.io/). At the moment, it does need to be infura with brownie. If you get lost, you can [follow this guide](https://ethereumico.io/knowledge-base/infura-api-key-guide/) to getting a project key. You can find your `PRIVATE_KEY` from your ethereum wallet like [metamask](https://metamask.io/).
 
@@ -78,12 +78,12 @@ If you want to auto-upload to pinata instead of IPFS automatically, you can do s
 
 You can add your environment variables to a `.env` file. You can use the [.env.example](https://github.com/vsevdrob/nft-brownie-ipfs-pinata-hashlips/.env.example) as a template, just fill in the values and rename it to `.env`.
 
-Here is what your `.env` should look like:
+Here is the example of how `.env` should look like:
 ```
-export WEB3_INFURA_PROJECT_ID=<PROJECT_ID>
-export PRIVATE_KEY=<PRIVATE_KEY>
-export PINATA_API_KEY_TEST=<API_KEY>
-export PINATA_API_SECRET_TEST=<API_SECRET>
+export WEB3_INFURA_PROJECT_ID='Ba41Bac12341'
+export PRIVATE_KEY_TEST='Ab678bCbc126'
+export PINATA_API_KEY_TEST='53hHlhjrw124h1h2'
+export PINATA_API_SECRET_TEST='jJF234JEwqekq2'
 ```
 
 You can also [learn how to set environment variables easier](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html)
@@ -124,59 +124,108 @@ And update the brownie config accordingly.
 
 ## Usage
 
+### With hashlips art engine
 
-1. Add layer folders to `hashlips_art_engine/layers/`. Then make sure that you have set the wishful edition size in `hashlips_art_engine/src/config.js` and followed the instructions about the proper setup of the layers order.
+1. Setup `hashlips_art_engine`
 
-> If you are not already familiar with Hashlips Art Engine, then first you want to read the `./hashlips_art_engine/README.md` about how to properly use this program, how to set the layer folders in the right way and how to give the __rarity weight__ to each layer, how to set the edition size to the wishful amount of artworks in `./hashlips_art_engine/src/config.js` file.
+* Clone the official repo by running this command in the project root directory `./nft-brownie-mix`:
 
-
-2. Generate artworks:
-
-
-For that, in `./hashlips_art_engine` directory, execute:
 ```bash
-npm run generate
+git clone https://github.com/HashLips/hashlips_art_engine.git
 ```
 
-Now you can view with specified amount your first generated artworks in `./hashlips_art_engine/build/images` and their original metadata in `./hashlips_art_engine/build/json`.
+* With the help of the haslips documentation generate your first images. You know you fulfilled it right if the directory `./nft-brownie-mix/hashlips_art_engine/build/images` contains of satisfied images.
 
+2. Add `HASHLIPS = {"enabled": True}` in `./scripts/utils/config.py`.
 
-3. Go to `nft_config.py` and provide some information about your collection by replacing the values in this variables:
+### Without hashlips
+
+1. Add manually the image(s) into `./img`.
+
+### General
+
+1. Go to `./scripts/collectible/config.py` and provide some configurations applied to your wishful collection by replacing the values in this variables:
 
 ```python
-COLLECTION_NAME = "Your Collection's Name" # Change the name for each new collection.
-COLLECTION_SYMBOL = "ABC" # Change the value for each new collection.
-COLLECTION_DESCRIPTION = "Your Collection's Description" # What your collection is about.
-AMOUNT_TO_MINT = 3 # Make sure you have enough images.
-
-ALTERNATIVE_DATA = {
-    "name": "Creative Name", # Change the name.
-    "description": "The most affair description" # Change the description.
+COLLECTIBLE = {
+    "name": "Super Art Collection", # <- 
+    "symbol": "SAC", # <-
+    "contract_URI": "", # ipfs://Qw1234Dd # <-
+    "royalty_receiver": "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199", # <-
+    "royalty_fraction": 250,  # e.g. 100 (1%); 1000 (10%)
 }
 
-ADDITIONAL_METADATA = {} # {"creator": "John Doe", "artist": "John Doe"}
+"""
+Is collection considered as a single edition collection?
+    - YES: SINGLE_EDITION_COLLECTION["enabled"] = True
+    - NO: SINGLE_EDITION_COLLECTION["enabled"] = False
+"""
+SINGLE_EDITION_COLLECTION = {
+    "enabled": True,
+    "file_name": "image_name.png",  # Provide the literal name of the image in ./img
+}
+
+AMOUNT_TO_MINT = 1 if SINGLE_EDITION_COLLECTION["enabled"] else 10  # <-
 
 SPREADSHEET = {
-    "enable": False,
-    "include_hashlips_generated_metadata_attributes": False, # Can ignore if didn't use hashlips_art_engine
-    "path": "./nft-spreadsheet-data.xlsx",
-    "trait_types": ["Sport", "Languages", "Zodiac sign", "Character", "Location"],
+    "enabled": False,  # <-
+    "trait_types": [],  # <- # first row columns after | ID | NAME | DESCRIPTION | CREATOR | ARTIST | 1st trait type | 2nd ...
 }
 
-NFT_EXTERNAL_LINK = {
-    "enable": False,
-    "root": "https://yourwebsite.io/",
-    "url": "https://yourwebsite.io/your-collection/",
-    "token_id": False, # https://yourwebsite.io/assets/123
-}
+"""
+@dev If SPREADSHEET is disabled and SINGLE_EDITION_COLLECTION is disabled:
+@dev name = "Name" + f"# {_token_id}"
+@dev description = "Description"
+@dev creator = "Creator"
+@dev artist = "Artist"
 
-ROYALTY_FEES_IN_BIPS = 1000 # Indicates a 10% seller fee.
+@dev If SPREADSHEET is disabled and SINGLE_EDITION_COLLECTION is enabled:
+@dev name = "Name"
+@dev description = "Description"
+@dev creator = "Creator"
+@dev artist = "Artist"
+
+@dev If SPREADSHEET is enabled and SINGLE_EDITION_COLLECTION is enabled:
+@dev name = <NAME PROVIDED IN SPREADSHEET UNDER ID 1>
+@dev description = <DESCRIPTION PROVIDED IN SPREADSHEET UNDER ID 1>
+@dev creator = <CREATOR PROVIDED IN SPREADSHEET UNDER ID 1>
+@dev artist = <ARTIST PROVIDED IN SPREADSHEET UNDER ID 1>
+
+@dev If SPREADSHEET is enabled and SINGLE_EDITION_COLLECTION is disabled:
+@dev name = <NAME PROVIDED IN SPREADSHEET UNDER ID #>
+@dev description = <DESCRIPTION PROVIDED IN SPREADSHEET UNDER ID #>
+@dev creator = <CREATOR PROVIDED IN SPREADSHEET UNDER ID #>
+@dev artist = <ARTIST PROVIDED IN SPREADSHEET UNDER ID #>
+"""
+COLLECTION = {
+    "description": "This collection represents ...",  # <-
+    "artwork": {
+        "name": "Name" if not SPREADSHEET["enabled"] else None,  # <-
+        "description": "Description" if not SPREADSHEET["enabled"] else None,  # <-
+        "creator": "Creator" if not SPREADSHEET["enabled"] else None,  # <-
+        "artist": "Artist" if not SPREADSHEET["enabled"] else None,  # <-
+        "additional_metadata": {
+            "enabled": False,  # <-
+            "data": {
+                "extra key 1": "value",
+                "extra key 2": "value",
+                # ...
+            },
+        },
+    },
+    "external_link": {
+        "enabled": False,  # <-
+        "base_url": "https://yourwebsite.io/",  # <-
+        "url": "https://yourwebsite.io/super-art-collection/",  # <-
+        "include_token_id": False,  # e.g. https://yourwebsite.io/super-art-collection/123 # <-
+    },
+}
 ```
 
 
-4. Deploy NFT.sol smart contract and mint NFTs:
+2. Deploy `Collectible.sol` smart contract and mint the first NFTs:
 
-### Development network
+* On `development` network:
 
 Start the brownie console:
 
@@ -187,26 +236,23 @@ brownie console
 In that console execute the functions:
 
 ```bash
-run("scripts/deploy_nft.py")
+run("scripts/deploy/deploy_collectible.py")
 ```
 ```bash
 run("scripts/main.py")
 ```
 
-
-### Rinkeby testnet
+* On `rinkeby` test network:
 
 Simply run this commands in your terminal window:
 
 ```bash
-brownie run scripts/deploy_nft.py --network rinkeby
+brownie run scripts/deploy/deploy_collectible.py --network rinkeby
 ```
 ```bash
 brownie run scripts/main.py --network rinkeby
 ```
 
-
-If you deployed your NFTs to Rinkeby testnet, after that you'll be able to view your NFTs on major marketplaces like OpenSea 🥳
 
 
 ## Resources

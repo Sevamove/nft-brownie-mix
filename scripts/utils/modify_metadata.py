@@ -1,3 +1,5 @@
+from brownie import network
+from helper_brownie import CHAINS
 from scripts.utils.pinata import upload_file
 from scripts.utils.helper import dump_to_json, load_from_json
 from scripts.utils.config import PATH, PINATA, HASHLIPS
@@ -6,7 +8,7 @@ from scripts.collectible.config import (
     SPREADSHEET,
     SINGLE_EDITION_COLLECTION,
 )
-import openpyxl
+from scripts.utils.spreadsheet import _get_nft_spreadsheet_data
 
 
 def main():
@@ -88,7 +90,7 @@ def modify_metadata(_token_id: int = None):
         for k, v in COLLECTION["artwork"]["additional_metadata"]["data"].items():
             metadata[k] = v
 
-    if PINATA["enabled"]:
+    if PINATA["enabled"] and network.show_active() not in CHAINS["local"]:
 
         # metadata["image"] = upload_to_ipfs(image_path)
         metadata["image"] = upload_file(image_path)
@@ -115,42 +117,3 @@ def _get_nft_external_link(_token_id):
     if COLLECTION["external_link"]["include_token_id"]:
         return COLLECTION["external_link"]["url"] + str(_token_id)
     return COLLECTION["external_link"]["url"]
-
-
-def _get_nft_spreadsheet_data(_path, _token_id):
-
-    """
-    Simple function how to transfer data from spreadsheet to Python.
-
-    1) Read the spreadsheet.
-    2) Loop through the each column in the first row. The values from that are
-        the keys in data dictionary.
-    3) At the same time loop through each column in the row specified by
-        the token_id parameter (token_id == ID in spreadsheet).
-    4) Assign key to value.
-    5) Return the data dictionary.
-    """
-
-    workbook = openpyxl.load_workbook(_path)
-    sheet = workbook.active
-
-    # total_rows = sheet.max_row
-    total_columns = sheet.max_column
-
-    data = {}
-
-    for i in range(1, total_columns + 1):
-        k = sheet.cell(row=1, column=i)
-        v = sheet.cell(row=_token_id + 1, column=i)
-
-        if (
-            k.value == "Name"
-            or k.value == "Description"
-            or k.value == "Creator"
-            or k.value == "Artist"
-        ):
-            data[k.value] = v.value
-        else:
-            data[k.value] = str(v.value).split(", ")
-
-    return data

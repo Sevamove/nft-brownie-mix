@@ -20,7 +20,7 @@ PATH: dict[str, str] = {
 }
 
 PINATA: dict[str, bool] = {
-    "enabled": False,
+    "enabled": True,
     "api_key": bool(os.getenv(f"PINATA_API_KEY_MAIN"))
     if network.show_active() in CHAINS["main"]
     else bool(os.getenv("PINATA_API_KEY_TEST")),
