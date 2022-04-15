@@ -28,10 +28,10 @@ def _get_nft_spreadsheet_data(_path, _token_id):
         v = sheet.cell(row=_token_id + 1, column=i)
 
         if (
-            k.value == "Name"
-            or k.value == "Description"
-            or k.value == "Creator"
-            or k.value == "Artist"
+            k.value == "NAME"
+            or k.value == "DESCRIPTION"
+            or k.value == "CREATOR"
+            or k.value == "ARTIST"
         ):
             data[k.value] = v.value
         else:

@@ -53,14 +53,14 @@ def modify_metadata(_token_id: int = None):
     if SPREADSHEET["enabled"]:
         ss_data = _get_nft_spreadsheet_data(PATH["spreadsheet"], token_id)
 
-        metadata["name"] = ss_data["Name"]
-        metadata["description"] = ss_data["Description"]
-        metadata["creator"] = ss_data["Creator"]
-        metadata["artist"] = ss_data["Artist"]
+        metadata["name"] = ss_data["NAME"]
+        metadata["description"] = ss_data["DESCRIPTION"]
+        metadata["creator"] = ss_data["CREATOR"]
+        metadata["artist"] = ss_data["ARTIST"]
 
         if (
-            not HASHLIPS["enabled"]
-            and HASHLIPS["include_generated_metadata_attributes"]
+            HASHLIPS["enabled"]
+            and not HASHLIPS["include_generated_metadata_attributes"]
         ):
             metadata["attributes"] = []
 
