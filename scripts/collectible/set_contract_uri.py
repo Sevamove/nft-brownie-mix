@@ -2,7 +2,7 @@ from helper_brownie import get_account
 from scripts.utils.config import PATH, PINATA, MARKETPLACE
 from scripts.utils.helper import dump_to_json
 from scripts.utils.pinata import upload_file
-from scripts.collectible.config import COLLECTIBLE, COLLECTION
+from scripts.collectible.config import COLLECTIBLE
 from brownie import Collectible, network
 
 

@@ -26,11 +26,15 @@ def modify_metadata(_token_id: int = None):
 
     token_id = _token_id
 
+    """
+    @dev Add to image path a dinamic endpoint that is based on the random file name.
+    """
     image_path = (
         PATH["images"] + f"/{token_id}.png"
-        if HASHLIPS["enabled"]
+        if HASHLIPS["enabled"] or not SINGLE_EDITION_COLLECTION["enabled"]
         else PATH["images"] + f"/{SINGLE_EDITION_COLLECTION['file_name']}"
     )
+
     metadata_path = PATH["token_metadata"] + f"/{token_id}.json"
     token_uri_path = PATH["token_URIs"] + f"/{token_id}.json"
 

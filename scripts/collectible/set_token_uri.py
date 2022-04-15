@@ -37,19 +37,23 @@ def set_token_uri(_account=None, _token_id=None):
         return False
 
 
-def _show_msg(_nft, _token_id):
+def _show_msg(_collectible, _token_id):
     msg = "Awesome! You can view your NFT at"
 
     if MARKETPLACE["opensea"]["enabled"]:
         if network.show_active() not in CHAINS["main"]:
             print(
                 msg,
-                f"{MARKETPLACE['opensea']['test_url']}".format(_nft.address, _token_id),
+                f"{MARKETPLACE['opensea']['test_url']}".format(
+                    _collectible.address, _token_id
+                ),
             )
         else:
             print(
                 msg,
-                f"{MARKETPLACE['opensea']['main_url']}".format(_nft.address, _token_id),
+                f"{MARKETPLACE['opensea']['main_url']}".format(
+                    _collectible.address, _token_id
+                ),
             )
 
         print("Please wait up to 20 minutes, and hit the refresh metadata button")

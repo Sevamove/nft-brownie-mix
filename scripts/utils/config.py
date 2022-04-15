@@ -6,7 +6,7 @@ from scripts.collectible.config import (
 )
 import os
 
-IPFS: dict[str, bool] = {"enabled": False}
+# IPFS: dict[str, bool] = {"enabled": False}
 
 PATH: dict[str, str] = {
     "images": "./img",
